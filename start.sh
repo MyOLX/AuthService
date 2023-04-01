@@ -48,7 +48,7 @@ echo Created image $IMAGE_NAME.
 
 # Creating and running the container
 echo Creating and running new container $CONTAINER_NAME
-docker run -d -p 8000:8000 --name auth-service --mount type=bind,source="$(pwd)"/app,destination=/app auth-service-image
+docker run -d -p 8000:8000 --name $CONTAINER_NAME --mount type=bind,source="$(pwd)"/app,destination=/app $IMAGE_NAME
 echo Container $CONTAINER_NAME running.
 
 echo Completed successfully.
