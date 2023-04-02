@@ -7,7 +7,7 @@ IMAGE_NAME_WITHOUT_TAG=auth-service-image
 IMAGE_TAG=latest
 IMAGE_NAME=$IMAGE_NAME_WITHOUT_TAG:$IMAGE_TAG
 CONTAINER_NAME=auth-service
-echo Image name will be "->" $IMAGE_NAME
+
 echo Container name will be "->" $CONTAINER_NAME
 
 #Clean up
@@ -25,26 +25,9 @@ if [ "$(docker ps -qa -f name="^$CONTAINER_NAME$" )" ]; then
     echo Removing container $CONTAINER_NAME...
     docker rm $CONTAINER_NAME
     echo Removed container $CONTAINER_NAME.
-
-    # Removing image
-    echo Removing image $IMAGE_NAME...
-    docker rmi $IMAGE_NAME
-    echo Removed image $IMAGE_NAME.
-else
-    if [ "$(docker images -q $IMAGE_NAME)" ]; then
-        # Removing image
-        echo Removing image $IMAGE_NAME...
-        docker rmi $IMAGE_NAME
-        echo Removed image $IMAGE_NAME.
-    fi
 fi
 
 echo Clean up complete.
-
-# Building docker image
-echo Building docker image $IMAGE_NAME...
-docker build -t $IMAGE_NAME .
-echo Created image $IMAGE_NAME.
 
 # Creating and running the container
 echo Creating and running new container $CONTAINER_NAME
