@@ -5,15 +5,21 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.AuthService.entities.AuthData;
 import com.example.AuthService.models.SignupModel;
+import com.example.AuthService.repositories.AuthDataRepository;
 import com.example.AuthService.utils.ObjMapperUtil;
 import com.example.AuthService.utils.PasswordUtil;
 
 @Service
 public class SignupServiceImpl implements SignupService {
     
+    @Autowired
+    private AuthDataRepository authDataRepository;
+
     public String validateUsername(String username) {
         if(username == null || username.equals(""))
             return "username cannot be empty";
@@ -74,22 +80,43 @@ public class SignupServiceImpl implements SignupService {
 
     public void handleSignup(SignupModel signupModel) throws Exception{
 
-        String username = signupModel.getUsername();
-        String password = PasswordUtil.getEncodedPassword(username, signupModel.getPassword());
-
-        System.out.println("----------------------------");
-        System.out.println(username+"   "+password);
-        System.out.println("----------------------------");
+        // Encode password to store in database
+        signupModel.setPassword(
+            PasswordUtil.getEncodedPassword(
+                signupModel.getUsername(), 
+                signupModel.getPassword()
+            )
+        );
+        
+        try {
+            authDataRepository.save(mapModelToEntity(signupModel));
+        } catch(Exception e) {
+            throw new Exception("unable to save data in repository Error-> "+e.toString());
+        }
 
     }
 
     private boolean usernameExists(String username) {
-        // TODO
+        if( authDataRepository.existsById(username) )
+            return true;
         return false;
     }
 
     private String validPassword(String password) {
         // TODO
         return null;
+    }
+
+    private AuthData mapModelToEntity(SignupModel signupModel) {
+        AuthData authData = new AuthData();
+            
+        authData.setUsername(signupModel.getUsername());
+        authData.setFirst_name(signupModel.getFirst_name());
+        authData.setLast_name(signupModel.getLast_name());
+        authData.setPhone(signupModel.getPhone());
+        authData.setEmail(signupModel.getEmail());
+        authData.setPassword(signupModel.getPassword());
+
+        return authData;
     }
 }
