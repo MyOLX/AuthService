@@ -1,14 +1,8 @@
 package com.example.AuthService.models;
 
-public class LoginResponse {
-    // TODO Add lombok depency to improve
-    private String messageString;
-    
-    public LoginResponse(String messageString) {
-        this.messageString = messageString;
-    }
+import lombok.Data;
 
-    public String getMessage() {
-        return messageString;
-    }
+@Data
+public class LoginResponse {
+    private String messageString;
 }

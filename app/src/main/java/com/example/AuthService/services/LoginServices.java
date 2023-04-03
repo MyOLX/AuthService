@@ -9,10 +9,14 @@ import com.example.AuthService.utils.CryptoUtil;
 public class LoginServices {
     public LoginResponse HandleLogin(String username, String password) throws Exception {
         // TODO
+
+        LoginResponse loginResponse = new LoginResponse();
         password = CryptoUtil.encodeData(username+"||||"+password);
         if( !checkIfUsernameExists(username) && validateData(username, password) )
-            return new LoginResponse("PASS -- > "+username+" -- "+password);
-        return new LoginResponse("FAIL -- > "+username+" -- "+password);
+            loginResponse.setMessageString("PASS -- > "+username+" -- "+password);
+        loginResponse.setMessageString("FAIL -- > "+username+" -- "+password);
+
+        return loginResponse;
     }
 
     private boolean checkIfUsernameExists(String username) {
