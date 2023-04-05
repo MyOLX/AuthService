@@ -89,11 +89,12 @@ public class SignupServiceImpl implements SignupService {
         AuthData authData = new AuthData();
             
         authData.setUsername(signupModel.getUsername());
-        authData.setFirst_name(signupModel.getFirst_name());
-        authData.setLast_name(signupModel.getLast_name());
+        authData.setFirstName(signupModel.getFirstName());
+        authData.setLastName(signupModel.getLastName());
         authData.setPhone(signupModel.getPhone());
         authData.setEmail(signupModel.getEmail());
         authData.setPassword(signupModel.getPassword());
+        authData.setCreatedAt(java.time.LocalDateTime.now().toString());
 
         return authData;
     }

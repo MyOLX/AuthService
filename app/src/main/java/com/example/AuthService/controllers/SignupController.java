@@ -22,7 +22,7 @@ public class SignupController {
     public ResponseEntity<String> signupNewUser(@RequestBody SignupModel signupModel) throws Exception {
         try {
             signupService.validateUsername(signupModel.getUsername());
-            signupService.validatePassword(signupModel.getPassword(), signupModel.getRe_password());
+            signupService.validatePassword(signupModel.getPassword(), signupModel.getRePassword());
             signupService.validateMandatoryFields(signupModel);
         } catch(Exception e) {
             return new ResponseEntity<>("Error: "+e.toString(), HttpStatus.BAD_REQUEST);
