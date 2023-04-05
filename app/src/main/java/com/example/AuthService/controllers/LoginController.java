@@ -20,8 +20,12 @@ public class LoginController {
 
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody LoginModel loginModel) throws Exception {
-        loginService.handleLogin(loginModel);
-        return new ResponseEntity<>("Login successful!", HttpStatus.ACCEPTED);
+        try {
+            loginService.handleLogin(loginModel);
+            return new ResponseEntity<>("Login successful!", HttpStatus.ACCEPTED);
+        } catch(Exception e) {
+            return new ResponseEntity<>("Error: "+e.toString(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
     
 }
