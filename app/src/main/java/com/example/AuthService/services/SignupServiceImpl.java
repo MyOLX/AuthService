@@ -14,34 +14,27 @@ import com.example.AuthService.utils.PasswordUtil;
 
 @Service
 public class SignupServiceImpl implements SignupService {
-    public String validateUsername(String username) {
+    public void validateUsername(String username) throws Exception {
         if(username == null || username.equals(""))
-            return "username cannot be empty";
+            throw new Exception("username cannot be empty");
 
         if(username.length() > 10)
-            return "username too big";
+            throw new Exception("username too big");
 
         if( usernameExists(username) )
-            return "username already exists";
-
-        return null;
+            throw new Exception("username already exists");
     }
 
-    public String validatePassword(String password, String reEnteredPassword) {
+    public void validatePassword(String password, String reEnteredPassword) throws Exception {
         if(!password.equals(reEnteredPassword)) {
-            return "re-entered password does not match";
+            throw new Exception("re-entered password does not match");
         }
 
         if(password == null || password.equals("")) {
-            return "password cannot be empty";
+            throw new Exception("password cannot be empty");
         }
 
-        String err = validPassword(password);
-        if( err != null ) {
-            return err;
-        }
-
-        return null;
+        validPassword(password);
     }
 
     public List<String> getMandatoryFieldList() {
@@ -55,7 +48,7 @@ public class SignupServiceImpl implements SignupService {
         return mandatoryFields;
     }
 
-    public String validateMandatoryFields(SignupModel signupModel) throws Exception {
+    public void validateMandatoryFields(SignupModel signupModel) throws Exception {
         List<String> mandatoryFieldsList = getMandatoryFieldList();
 
         Map<String, Object> mandatoryFieldsMap = new HashMap<>();
@@ -66,10 +59,9 @@ public class SignupServiceImpl implements SignupService {
         
         for(Map.Entry<String, Object> field: mandatoryFieldsMap.entrySet()) {
             if(field.getValue() == null || field.getValue().equals("")) {
-                return "missing mandatory fields "+field.getKey();
+                throw new Exception("missing mandatory fields "+field.getKey());
             }
         }
-        return null;
     }
 
     public void handleSignup(SignupModel signupModel) throws Exception{
@@ -89,9 +81,8 @@ public class SignupServiceImpl implements SignupService {
         return false;
     }
 
-    private String validPassword(String password) {
+    private void validPassword(String password) throws Exception {
         // TODO
-        return null;
     }
 
     private AuthData mapModelToEntity(SignupModel signupModel) {

@@ -20,22 +20,12 @@ public class SignupController {
 
     @PostMapping("/signup")
     public ResponseEntity<String> signupNewUser(@RequestBody SignupModel signupModel) throws Exception {
-        
-        System.out.println(signupModel.toString());
-
-        String err = signupService.validateUsername(signupModel.getUsername());
-        if( err != null ) {
-            return new ResponseEntity<>("Error: "+err, HttpStatus.BAD_REQUEST);
-        }
-
-        err = signupService.validatePassword(signupModel.getPassword(), signupModel.getRe_password());
-        if( err != null ) {
-            return new ResponseEntity<>("Error: "+err, HttpStatus.BAD_REQUEST);
-        }
-        
-        err = signupService.validateMandatoryFields(signupModel);
-        if( err != null ) {
-            return new ResponseEntity<>("Error: "+err, HttpStatus.BAD_REQUEST);
+        try {
+            signupService.validateUsername(signupModel.getUsername());
+            signupService.validatePassword(signupModel.getPassword(), signupModel.getRe_password());
+            signupService.validateMandatoryFields(signupModel);
+        } catch(Exception e) {
+            return new ResponseEntity<>("Error: "+e.toString(), HttpStatus.BAD_REQUEST);
         }
         
         try {
