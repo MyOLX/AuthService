@@ -5,21 +5,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.AuthService.entities.AuthData;
 import com.example.AuthService.models.SignupModel;
-import com.example.AuthService.repositories.AuthDataRepository;
 import com.example.AuthService.utils.ObjMapperUtil;
 import com.example.AuthService.utils.PasswordUtil;
 
 @Service
 public class SignupServiceImpl implements SignupService {
-    
-    @Autowired
-    private AuthDataRepository authDataRepository;
-
     public String validateUsername(String username) {
         if(username == null || username.equals(""))
             return "username cannot be empty";
@@ -79,7 +73,6 @@ public class SignupServiceImpl implements SignupService {
     }
 
     public void handleSignup(SignupModel signupModel) throws Exception{
-
         // Encode password to store in database
         signupModel.setPassword(
             PasswordUtil.getEncodedPassword(
@@ -87,17 +80,11 @@ public class SignupServiceImpl implements SignupService {
                 signupModel.getPassword()
             )
         );
-        
-        try {
-            authDataRepository.save(mapModelToEntity(signupModel));
-        } catch(Exception e) {
-            throw new Exception("unable to save data in repository Error-> "+e.toString());
-        }
-
+        AuthDataRepositoryHandler.save(mapModelToEntity(signupModel));
     }
 
     private boolean usernameExists(String username) {
-        if( authDataRepository.existsById(username) )
+        if( AuthDataRepositoryHandler.existsById(username) )
             return true;
         return false;
     }
