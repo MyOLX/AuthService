@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.AuthService.entities.AuthData;
@@ -14,6 +15,10 @@ import com.example.AuthService.utils.PasswordUtil;
 
 @Service
 public class SignupServiceImpl implements SignupService {
+
+    @Autowired
+    private AuthDataRepositoryHandler repo;
+
     public void validateUsername(String username) throws Exception {
         if(username == null || username.equals(""))
             throw new Exception("username cannot be empty");
@@ -72,11 +77,11 @@ public class SignupServiceImpl implements SignupService {
                 signupModel.getPassword()
             )
         );
-        AuthDataRepositoryHandler.save(mapModelToEntity(signupModel));
+        repo.save(mapModelToEntity(signupModel));
     }
 
     private boolean usernameExists(String username) {
-        if( AuthDataRepositoryHandler.existsById(username) )
+        if( repo.existsById(username) )
             return true;
         return false;
     }
