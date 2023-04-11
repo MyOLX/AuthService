@@ -3,6 +3,7 @@ package com.example.AuthService.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,11 +21,13 @@ public class AccountController {
     @Autowired
     private AccountService accountService;
 
+    @CrossOrigin
     @PutMapping("/account/update/username")
     public ResponseEntity<String> updateUsername(@RequestBody AccountUpdateModel accountUpdateModel) throws Exception {
         return new ResponseEntity<>("Cannot update username", HttpStatus.SERVICE_UNAVAILABLE);
     }
 
+    @CrossOrigin
     @PutMapping("/account/update/password")
     public ResponseEntity<String> updatePassword(@RequestBody AccountUpdateModel accountUpdateModel) throws Exception {
         String username = accountUpdateModel.getUsername();
@@ -39,6 +42,7 @@ public class AccountController {
         }
     }
 
+    @CrossOrigin
     @PutMapping("/account/update/name")
     public ResponseEntity<String> updateName(@RequestBody AccountUpdateModel accountUpdateModel) throws Exception {
         String username = accountUpdateModel.getUsername();
@@ -54,6 +58,7 @@ public class AccountController {
         }
     }
 
+    @CrossOrigin
     @PutMapping("/account/update/phone")
     public ResponseEntity<String> updatePhone(@RequestBody AccountUpdateModel accountUpdateModel) throws Exception {
         String username = accountUpdateModel.getUsername();
@@ -68,6 +73,7 @@ public class AccountController {
         }
     }
 
+    @CrossOrigin
     @PutMapping("/account/update/email")
     public ResponseEntity<String> updateEmail(@RequestBody AccountUpdateModel accountUpdateModel) throws Exception {
         String username = accountUpdateModel.getUsername();
@@ -82,6 +88,7 @@ public class AccountController {
         }
     }
 
+    @CrossOrigin
     @DeleteMapping("/account/delete")
     public ResponseEntity<String> deleteAccount(@RequestBody AccountDeleteModel accountDeleteModel) throws Exception {
         String username = accountDeleteModel.getUsername();

@@ -46,7 +46,7 @@ public class SignupServiceImpl implements SignupService {
         List<String> mandatoryFields = new ArrayList<>();
     
         //mandatory fields - add here
-        mandatoryFields.add("first_name");
+        mandatoryFields.add("firstName");
         mandatoryFields.add("phone");
         mandatoryFields.add("email");
 
