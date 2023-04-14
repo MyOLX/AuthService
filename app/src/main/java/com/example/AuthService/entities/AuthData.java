@@ -1,5 +1,7 @@
 package com.example.AuthService.entities;
 
+import java.util.Date;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -20,6 +22,8 @@ public class AuthData {
     private String phone;
     @Column(nullable = false, unique = true)
     private String email;
+    @Column(nullable = false)
+    private Date dateOfBirth;
     @Column(nullable = false)
     private String password;
     private String createdAt;

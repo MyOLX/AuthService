@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.AuthService.models.SignupModel;
+import com.example.AuthService.models.SignupResponseModel;
 import com.example.AuthService.services.SignupService;
 
 @RestController
@@ -20,21 +21,33 @@ public class SignupController {
     private SignupService signupService;
 
     @CrossOrigin
-    @PostMapping("/signup")
-    public ResponseEntity<String> signupNewUser(@RequestBody SignupModel signupModel) throws Exception {
+    @PostMapping(name = "/signup", produces = "application/json")
+    public ResponseEntity<SignupResponseModel> signupNewUser(@RequestBody SignupModel signupModel) throws Exception {
+        
+        SignupResponseModel response = new SignupResponseModel();
+        
         try {
             signupService.validateUsername(signupModel.getUsername());
             signupService.validatePassword(signupModel.getPassword(), signupModel.getRePassword());
             signupService.validateMandatoryFields(signupModel);
         } catch(Exception e) {
-            return new ResponseEntity<>("Error: "+e.toString(), HttpStatus.BAD_REQUEST);
+            response.setErrMessage(e.toString());
+            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
         }
         
         try {
             signupService.handleSignup(signupModel);
-            return new ResponseEntity<>("Signup successful!", HttpStatus.CREATED);
+
+            response.setUsername(signupModel.getUsername());
+            response.setName(signupModel.getFirstName()+" "+signupModel.getLastName());
+            response.setPhone(signupModel.getPhone());
+            response.setEmail(signupModel.getEmail());
+            response.setDateOfBirth(signupModel.getDateOfBirth());
+
+            return new ResponseEntity<>(response, HttpStatus.CREATED);
         } catch(Exception e) {
-            return new ResponseEntity<>("Error: "+e.toString(), HttpStatus.INTERNAL_SERVER_ERROR);
+            response.setErrMessage(e.toString());
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
     

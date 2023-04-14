@@ -1,5 +1,6 @@
 package com.example.AuthService.services;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -49,6 +50,7 @@ public class SignupServiceImpl implements SignupService {
         mandatoryFields.add("firstName");
         mandatoryFields.add("phone");
         mandatoryFields.add("email");
+        mandatoryFields.add("dateOfBirth");
 
         return mandatoryFields;
     }
@@ -90,7 +92,7 @@ public class SignupServiceImpl implements SignupService {
         // TODO
     }
 
-    private AuthData mapModelToEntity(SignupModel signupModel) {
+    private AuthData mapModelToEntity(SignupModel signupModel) throws Exception {
         AuthData authData = new AuthData();
             
         authData.setUsername(signupModel.getUsername());
@@ -98,6 +100,7 @@ public class SignupServiceImpl implements SignupService {
         authData.setLastName(signupModel.getLastName());
         authData.setPhone(signupModel.getPhone());
         authData.setEmail(signupModel.getEmail());
+        authData.setDateOfBirth(new SimpleDateFormat("dd/MM/yyyy").parse(signupModel.getDateOfBirth()));
         authData.setPassword(signupModel.getPassword());
         authData.setCreatedAt(java.time.LocalDateTime.now().toString());
 

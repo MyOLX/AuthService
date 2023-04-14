@@ -3,13 +3,11 @@ package com.example.AuthService.models;
 import lombok.Data;
 
 @Data
-public class SignupModel {
+public class SignupResponseModel {
     private String username;
-    private String firstName;
-    private String lastName;
+    private String name;
     private String phone;
     private String email;
     private String dateOfBirth;
-    private String password;
-    private String rePassword;
+    private String errMessage;
 }
