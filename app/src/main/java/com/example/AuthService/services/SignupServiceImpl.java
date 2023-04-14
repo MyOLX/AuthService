@@ -100,7 +100,7 @@ public class SignupServiceImpl implements SignupService {
         authData.setLastName(signupModel.getLastName());
         authData.setPhone(signupModel.getPhone());
         authData.setEmail(signupModel.getEmail());
-        authData.setDateOfBirth(new SimpleDateFormat("dd/MM/yyyy").parse(signupModel.getDateOfBirth()));
+        authData.setDateOfBirth(new SimpleDateFormat("yyyy-MM-dd").parse(signupModel.getDateOfBirth()));
         authData.setPassword(signupModel.getPassword());
         authData.setCreatedAt(java.time.LocalDateTime.now().toString());
 
