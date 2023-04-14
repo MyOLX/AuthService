@@ -21,9 +21,8 @@ public class SignupController {
     private SignupService signupService;
 
     @CrossOrigin
-    @PostMapping(name = "/signup", produces = "application/json")
+    @PostMapping(path = "/signup", produces = "application/json")
     public ResponseEntity<SignupResponseModel> signupNewUser(@RequestBody SignupModel signupModel) throws Exception {
-        
         SignupResponseModel response = new SignupResponseModel();
         
         try {
