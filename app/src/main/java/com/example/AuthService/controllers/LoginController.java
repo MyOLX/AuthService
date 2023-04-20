@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.AuthService.models.LoginModel;
+import com.example.AuthService.models.LoginResponseModel;
 import com.example.AuthService.services.LoginService;
 
 @RestController
@@ -21,12 +22,15 @@ public class LoginController {
 
     @CrossOrigin
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody LoginModel loginModel) throws Exception {
+    public ResponseEntity<LoginResponseModel> login(@RequestBody LoginModel loginModel) throws Exception {
+        LoginResponseModel loginResponse = new LoginResponseModel();
         try {
             loginService.handleLogin(loginModel);
-            return new ResponseEntity<>("Login successful!", HttpStatus.ACCEPTED);
+            loginResponse.setUnique_id(loginModel.getUsername());
+            return new ResponseEntity<>(loginResponse, HttpStatus.ACCEPTED);
         } catch(Exception e) {
-            return new ResponseEntity<>("Error: "+e.toString(), HttpStatus.INTERNAL_SERVER_ERROR);
+            loginResponse.setErrMessage(e.toString());
+            return new ResponseEntity<>(loginResponse, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
     
