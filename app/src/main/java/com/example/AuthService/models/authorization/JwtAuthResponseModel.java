@@ -1,5 +1,6 @@
-package com.example.AuthService.models;
+package com.example.AuthService.models.authorization;
 
+import com.example.AuthService.models.authorization.AuthorizationResponseModel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

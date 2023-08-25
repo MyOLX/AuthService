@@ -1,12 +1,12 @@
 package com.example.AuthService.services;
 
-import com.example.AuthService.models.LoginResponseModel;
+import com.example.AuthService.models.login.LoginResponseModel;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.AuthService.entities.AuthData;
-import com.example.AuthService.models.LoginModel;
+import com.example.AuthService.models.login.LoginModel;
 import com.example.AuthService.utils.PasswordUtil;
 
 @AllArgsConstructor

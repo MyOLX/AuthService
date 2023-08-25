@@ -1,5 +1,6 @@
-package com.example.AuthService.models;
+package com.example.AuthService.models.signup;
 
+import com.example.AuthService.models.authorization.JwtAuthResponseModel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

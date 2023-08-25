@@ -2,7 +2,7 @@ package com.example.AuthService.services;
 
 import java.util.List;
 
-import com.example.AuthService.models.SignupModel;
+import com.example.AuthService.models.signup.SignupModel;
 
 public interface SignupService {
     public void validateUsername(String username) throws Exception;

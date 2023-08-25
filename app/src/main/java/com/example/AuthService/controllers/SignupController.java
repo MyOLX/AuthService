@@ -5,8 +5,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.example.AuthService.models.SignupModel;
-import com.example.AuthService.models.SignupResponseModel;
+import com.example.AuthService.models.signup.SignupModel;
+import com.example.AuthService.models.signup.SignupResponseModel;
 import com.example.AuthService.services.SignupService;
 
 @RestController
