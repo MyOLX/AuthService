@@ -15,16 +15,14 @@ public class AuthDataRepositoryHandler {
     private AuthDataRepository authDataRepository;
 
     private boolean isIdValid(String id) {
-        if( id == null || id == "" )
-            return false;
-        return true;
+        return id != null && !id.equals("");
     }
 
     void save(AuthData authData) throws Exception {
         try {
             authDataRepository.save(authData);
         } catch(Exception e) {
-            throw new Exception("unable to save data in repository Error-> "+e.toString());
+            throw new Exception("unable to save data in repository Error-> "+ e);
         }
     }
 
@@ -33,18 +31,14 @@ public class AuthDataRepositoryHandler {
             return null;
 
         Optional<AuthData> authDataOpt = authDataRepository.findById(id);
-        if( !authDataOpt.isPresent() )
-            return null;
-        if( authDataOpt.isEmpty() )
-            return null;
-        return authDataOpt.get();
+        return authDataOpt.orElse(null);
     }
 
     void update(AuthData updatedAuthData) {
         try {
             authDataRepository.save(updatedAuthData);
         } catch(Exception e) {
-            throw new Error("unable to update the data Error: "+e.toString());
+            throw new Error("unable to update the data Error: "+ e);
         }
     }
 
@@ -58,7 +52,7 @@ public class AuthDataRepositoryHandler {
         try {
             authDataRepository.delete(authData);
         } catch(Exception e) {
-            throw new Error("unable to delete the data Error: "+e.toString());
+            throw new Error("unable to delete the data Error: "+ e);
         }
     }
 
