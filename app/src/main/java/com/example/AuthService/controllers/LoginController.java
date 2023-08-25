@@ -8,8 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.example.AuthService.models.LoginModel;
-import com.example.AuthService.models.LoginResponseModel;
+import com.example.AuthService.models.login.LoginModel;
+import com.example.AuthService.models.login.LoginResponseModel;
 import com.example.AuthService.services.LoginService;
 
 @RestController

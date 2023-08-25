@@ -2,7 +2,7 @@ package com.example.AuthService.services;
 
 import java.nio.file.AccessDeniedException;
 
-import com.example.AuthService.models.AccountDetailsModel;
+import com.example.AuthService.models.account.AccountDetailsModel;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

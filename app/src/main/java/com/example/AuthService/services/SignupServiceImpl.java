@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.AuthService.entities.AuthData;
-import com.example.AuthService.models.SignupModel;
+import com.example.AuthService.models.signup.SignupModel;
 import com.example.AuthService.utils.ObjMapperUtil;
 import com.example.AuthService.utils.PasswordUtil;
 

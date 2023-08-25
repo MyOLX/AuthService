@@ -1,6 +1,6 @@
 package com.example.AuthService.services;
 
-import com.example.AuthService.models.AccountDetailsModel;
+import com.example.AuthService.models.account.AccountDetailsModel;
 
 public interface AccountService {
     public AccountDetailsModel getUserDetails(String username) throws Exception;

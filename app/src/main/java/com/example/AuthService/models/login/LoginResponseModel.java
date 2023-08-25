@@ -1,5 +1,6 @@
-package com.example.AuthService.models;
+package com.example.AuthService.models.login;
 
+import com.example.AuthService.models.authorization.JwtAuthResponseModel;
 import lombok.Data;
 
 @Data

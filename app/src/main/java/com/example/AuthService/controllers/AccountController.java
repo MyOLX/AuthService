@@ -1,7 +1,7 @@
 package com.example.AuthService.controllers;
 
 import com.example.AuthService.constants.CommonConstants;
-import com.example.AuthService.models.AccountDetailsModel;
+import com.example.AuthService.models.account.AccountDetailsModel;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,8 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.example.AuthService.models.AccountDeleteModel;
-import com.example.AuthService.models.AccountUpdateModel;
+import com.example.AuthService.models.account.AccountDeleteModel;
+import com.example.AuthService.models.account.AccountUpdateModel;
 import com.example.AuthService.services.AccountService;
 
 @RestController
