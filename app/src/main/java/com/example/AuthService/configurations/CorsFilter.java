@@ -1,4 +1,4 @@
-package com.example.AuthService;
+package com.example.AuthService.configurations;
 
 import java.io.IOException;
 

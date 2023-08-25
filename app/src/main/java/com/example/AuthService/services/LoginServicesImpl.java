@@ -1,5 +1,7 @@
 package com.example.AuthService.services;
 
+import com.example.AuthService.models.LoginResponseModel;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -7,13 +9,16 @@ import com.example.AuthService.entities.AuthData;
 import com.example.AuthService.models.LoginModel;
 import com.example.AuthService.utils.PasswordUtil;
 
+@AllArgsConstructor
 @Service
 public class LoginServicesImpl implements LoginService {
-
     @Autowired
     private AuthDataRepositoryHandler repo;
 
-    public void handleLogin(LoginModel loginModel) throws Exception {
+    @Autowired
+    private AuthorizationService authorizationService;
+
+    public LoginResponseModel handleLogin(LoginModel loginModel, String authType) throws Exception {
         String username = loginModel.getUsername();
         String password = PasswordUtil.getEncodedPassword(username, loginModel.getPassword());
 
@@ -27,5 +32,37 @@ public class LoginServicesImpl implements LoginService {
         if( !authData.getPassword().equals(password) ) {
             throw new Exception( "Wrong password !!" );
         }
+
+        AuthorizationService authorizationService = new AuthorizationServiceImpl(authType);
+        String token = authorizationService.createAuthorizationToken(username);
+        return new LoginResponseModel() {{
+            setUniqueId(username);
+            setJwtToken(token);
+            setExpiresAt(authorizationService.getExpiresAtFromToken(token));
+        }};
+    }
+
+    @Override
+    public LoginResponseModel handleAuthTokenVerification(String token) throws Exception {
+        String username = authorizationService.getUniqueIdFromToken(token);
+        long expiresAt = authorizationService.getExpiresAtFromToken(token);
+        return new LoginResponseModel() {{
+            setUniqueId(username);
+            setJwtToken(token);
+            setExpiresAt(expiresAt);
+        }};
+    }
+
+    @Override
+    public LoginResponseModel handleAuthTokenRefresh(String token) throws Exception {
+        String newToken = authorizationService.refreshToken(token);
+        String username = authorizationService.getUniqueIdFromToken(newToken);
+        long expiresAt = authorizationService.getExpiresAtFromToken(newToken);
+
+        return new LoginResponseModel() {{
+            setUniqueId(username);
+            setJwtToken(newToken);
+            setExpiresAt(expiresAt);
+        }};
     }
 }
